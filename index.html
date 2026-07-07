@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let It Be Language School</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #CC2229; --red-dark: #A01820; --red-light: #fdf0f0;
+    --navy: #1A2B5C; --navy-mid: #2A3F80; --navy-light: #eaecf7;
+    --white: #FFFFFF; --cream: #F9F8F6; --gray: #6B7280;
+    --gray-light: #F3F4F6; --text: #111827; --border: #E5E7EB;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--text); overflow-x:hidden; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    background:rgba(255,255,255,0.97); backdrop-filter:blur(10px);
+    border-bottom:3px solid var(--red);
+    padding:0 5vw; display:flex; align-items:center; justify-content:space-between;
+    height:70px; box-shadow:0 2px 14px rgba(26,43,92,0.09);
+  }
+  .nav-logo { display:flex; flex-direction:column; line-height:1; text-decoration:none; }
+  .nav-logo .nl1 { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--red); letter-spacing:1px; }
+  .nav-logo .nl2 { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--navy); }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { text-decoration:none; color:var(--navy); font-size:15px; font-weight:700; transition:color .2s; }
+  .nav-links a:hover { color:var(--red); }
+  .nav-cta { background:var(--red); color:white !important; padding:9px 22px; border-radius:24px; }
+  .nav-cta:hover { background:var(--red-dark) !important; }
+
+  /* HERO */
+  .hero {
+    min-height:100vh;
+    background:linear-gradient(140deg, var(--navy) 0%, var(--navy-mid) 55%, #1e3a8a 100%);
+    display:grid; grid-template-columns:1fr 1fr;
+    align-items:center; padding:100px 6vw 60px; gap:3rem;
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-120px; right:-120px;
+    width:650px; height:650px; border-radius:50%;
+    background:radial-gradient(circle, rgba(204,34,41,0.16) 0%, transparent 70%);
+  }
+  .hero-content { position:relative; z-index:2; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(204,34,41,0.22); border:1px solid rgba(204,34,41,0.45);
+    color:#ffaaaa; padding:6px 16px; border-radius:20px;
+    font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:1.5rem;
+  }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2.6rem,4.5vw,4.2rem); line-height:1.15; color:white; margin-bottom:1.2rem; }
+  .hero h1 em { font-style:italic; color:#f87171; }
+  .hero-sub { font-size:1.05rem; color:rgba(255,255,255,0.75); line-height:1.75; max-width:480px; margin-bottom:2rem; }
+  .hero-buttons { display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn-primary {
+    background:var(--red); color:white; padding:14px 30px;
+    border-radius:32px; text-decoration:none; font-weight:800; font-size:15px;
+    transition:all .25s; display:inline-flex; align-items:center; gap:8px;
+    box-shadow:0 4px 20px rgba(204,34,41,0.45);
+  }
+  .btn-primary:hover { background:var(--red-dark); transform:translateY(-2px); }
+  .btn-secondary {
+    background:rgba(255,255,255,0.1); color:white; padding:14px 30px;
+    border-radius:32px; text-decoration:none; font-weight:700; font-size:15px;
+    border:2px solid rgba(255,255,255,0.35); transition:all .25s;
+  }
+  .btn-secondary:hover { background:rgba(255,255,255,0.18); transform:translateY(-2px); }
+  .hero-visual { position:relative; z-index:2; display:flex; justify-content:center; }
+  .hero-card {
+    background:white; border-radius:24px; padding:2.2rem;
+    box-shadow:0 24px 64px rgba(0,0,0,0.35); width:100%; max-width:340px; position:relative;
+  }
+  .divider-grad { height:3px; background:linear-gradient(90deg,var(--red),var(--navy)); border-radius:2px; margin-bottom:1.4rem; }
+  .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:1.2rem; }
+  .stat-box { background:var(--cream); border-radius:12px; padding:.9rem; text-align:center; border:1px solid var(--border); }
+  .stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--red); display:block; }
+  .stat-label { font-size:11px; color:var(--gray); font-weight:700; }
+  .hero-pill { background:var(--navy); color:white; border-radius:12px; padding:10px 14px; font-size:13px; font-weight:700; text-align:center; }
+  .float-tag {
+    position:absolute; top:-14px; right:14px;
+    background:var(--red); color:white; padding:6px 16px; border-radius:14px;
+    font-size:12px; font-weight:700; box-shadow:0 4px 12px rgba(204,34,41,0.4);
+  }
+
+  /* SECCIONES */
+  section { padding:5.5rem 6vw; }
+  .section-label { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:.6rem; }
+  .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.9rem,3vw,2.6rem); color:var(--navy); line-height:1.25; margin-bottom:.8rem; }
+  .section-sub { color:var(--gray); font-size:1rem; max-width:560px; line-height:1.75; }
+
+  /* NOSOTROS */
+  .about { background:white; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .about-visual {
+    background:linear-gradient(135deg, var(--navy-light) 0%, var(--red-light) 100%);
+    border-radius:24px; height:380px; display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .about-visual img { height:120px; filter:drop-shadow(0 8px 24px rgba(0,0,0,0.18)); }
+  .about-badge {
+    position:absolute; bottom:-18px; right:-18px;
+    background:var(--red); color:white; border-radius:16px;
+    padding:1rem 1.3rem; line-height:1.4; box-shadow:0 8px 24px rgba(204,34,41,0.3);
+  }
+  .about-badge strong { display:block; font-size:1.5rem; font-family:'Playfair Display',serif; }
+  .about-badge span { font-size:12px; opacity:.9; }
+  .timeline { margin-top:1.8rem; display:flex; flex-direction:column; gap:.8rem; }
+  .tl-item { display:flex; align-items:flex-start; gap:14px; padding:1rem 1.2rem; background:var(--cream); border-radius:14px; border-left:3px solid var(--red); }
+  .tl-icon { width:34px; height:34px; background:var(--red-light); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+  .tl-item h4 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .tl-item p { font-size:13px; color:var(--gray); line-height:1.5; }
+
+  /* SEDES */
+  .sedes { background:var(--cream); }
+  .sedes-header { text-align:center; margin-bottom:3rem; }
+  .sedes-header .section-sub { margin:0 auto; }
+  .sedes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.3rem; }
+  .sede-card {
+    background:white; border-radius:20px; padding:1.6rem;
+    border:1px solid var(--border); transition:all .3s; position:relative; overflow:hidden;
+  }
+  .sede-card::after { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--red),var(--navy)); }
+  .sede-card:hover { transform:translateY(-4px); box-shadow:0 14px 36px rgba(26,43,92,0.12); }
+  .sede-num { width:34px; height:34px; background:var(--navy); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; margin-bottom:.9rem; }
+  .sede-card h3 { font-size:16px; font-weight:800; color:var(--navy); margin-bottom:.3rem; }
+  .sede-card address { font-style:normal; font-size:13px; color:var(--gray); line-height:1.5; margin-bottom:.7rem; }
+  .sede-tag { display:inline-block; background:var(--red-light); color:var(--red-dark); font-size:11px; font-weight:700; padding:4px 12px; border-radius:10px; }
+
+  /* ENCARGADAS */
+  .team { background:white; }
+  .team-header { text-align:center; margin-bottom:3rem; }
+  .team-header .section-sub { margin:0 auto; }
+  .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+  .team-card {
+    background:var(--cream); border-radius:20px; overflow:hidden;
+    border:1px solid var(--border); transition:all .3s; text-align:center;
+  }
+  .team-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(26,43,92,0.13); }
+  .team-card img { width:100%; height:240px; object-fit:cover; object-position:center 10%; display:block; }
+  .team-card.img-up img { object-position:center 25%; }
+  .team-card.img-avellaneda img { object-position:center 35%; }
+  .team-card.img-romang img { object-position:center 5%; }
+  .team-card.img-fit img { height:auto; object-fit:contain; }
+  .team-photo-placeholder {
+    width:100%; aspect-ratio:1/1;
+    background:linear-gradient(135deg,var(--navy-light) 0%,var(--red-light) 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-size:3rem; gap:.5rem;
+  }
+  .team-photo-placeholder span { font-size:13px; color:var(--gray); font-weight:600; }
+  .team-info { padding:1.2rem; }
+  .team-role {
+    display:inline-block; background:var(--red); color:white;
+    font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+    padding:4px 12px; border-radius:10px; margin-bottom:.6rem;
+  }
+  .team-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--navy); font-weight:700; margin-bottom:.2rem; }
+  .team-sede { font-size:12px; color:var(--gray); font-weight:600; }
+
+  /* CURSOS — TABS */
+  .courses { background:var(--navy); }
+  .courses .section-label { color:#f87171; }
+  .courses .section-title { color:white; }
+  .courses .section-sub { color:rgba(255,255,255,0.65); }
+  .courses-header { margin-bottom:2.5rem; }
+  .tab-bar { display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:2rem; }
+  .tab-btn {
+    background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7);
+    border:1px solid rgba(255,255,255,0.15); border-radius:24px;
+    padding:9px 22px; font-family:'Nunito',sans-serif; font-size:14px; font-weight:700;
+    cursor:pointer; transition:all .25s;
+  }
+  .tab-btn:hover { background:rgba(255,255,255,0.18); color:white; }
+  .tab-btn.active { background:var(--red); color:white; border-color:var(--red); box-shadow:0 4px 14px rgba(204,34,41,0.45); }
+  .tab-panel { display:none; animation:fadeIn .3s ease; }
+  .tab-panel.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .courses-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; }
+  .course-item {
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
+    border-radius:16px; padding:1.4rem; transition:all .25s;
+  }
+  .course-item:hover { background:rgba(255,255,255,0.14); transform:translateY(-3px); }
+  .course-item-icon { font-size:1.8rem; margin-bottom:.7rem; display:block; }
+  .course-item-cat { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fca5a5; margin-bottom:.3rem; }
+  .course-item h3 { font-size:1.05rem; font-weight:800; color:white; margin-bottom:.3rem; }
+  .course-item p { font-size:12px; color:rgba(255,255,255,0.55); line-height:1.5; }
+
+  /* HORARIO */
+  .schedule { background:white; }
+  .schedule-header { text-align:center; margin-bottom:3rem; }
+  .schedule-header .section-sub { margin:0 auto; }
+  .schedule-box {
+    max-width:600px; margin:0 auto;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
+    border-radius:24px; padding:2.5rem; color:white; text-align:center;
+    box-shadow:0 16px 48px rgba(26,43,92,0.2);
+  }
+  .schedule-box .big-time { font-family:'Playfair Display',serif; font-size:2.4rem; line-height:1.3; color:white; margin:1rem 0 .5rem; }
+  .schedule-box .time-label { font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#fca5a5; }
+  .schedule-box .time-days { font-size:1.1rem; color:rgba(255,255,255,0.75); margin-top:.3rem; margin-bottom:1.5rem; }
+  .schedule-note-pill {
+    display:inline-block; background:rgba(204,34,41,0.3); border:1px solid rgba(204,34,41,0.5);
+    color:#ffb3b3; border-radius:20px; padding:8px 20px; font-size:13px; font-weight:700;
+  }
+  .schedule-cards { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem; }
+  .sch-mini { background:rgba(255,255,255,0.1); border-radius:14px; padding:1rem; }
+  .sch-mini-icon { font-size:1.5rem; margin-bottom:.5rem; }
+  .sch-mini h4 { font-size:13px; font-weight:800; margin-bottom:3px; }
+  .sch-mini p { font-size:12px; color:rgba(255,255,255,0.6); }
+
+  /* CONTACTO */
+  .contact { background:var(--cream); display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+  .contact-items { display:flex; flex-direction:column; gap:.9rem; margin-top:1.8rem; }
+  .contact-item {
+    display:flex; align-items:center; gap:14px;
+    padding:1.1rem 1.3rem; background:white; border-radius:14px; border:1px solid var(--border);
+  }
+  .c-icon { width:42px; height:42px; background:var(--red); border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+  .contact-item h4 { font-size:11px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:1px; margin-bottom:2px; }
+  .contact-item a, .contact-item p { font-size:15px; color:var(--navy); text-decoration:none; font-weight:700; }
+  .contact-item a:hover { color:var(--red); }
+  .social-row { display:flex; gap:10px; margin-top:1.5rem; flex-wrap:wrap; }
+  .social-btn { display:flex; align-items:center; gap:8px; padding:11px 22px; border-radius:24px; font-size:14px; font-weight:700; text-decoration:none; transition:all .2s; }
+  .social-ig { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:white; }
+  .social-wa { background:#25D366; color:white; }
+  .social-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,0.2); }
+  .sedes-list { display:flex; flex-direction:column; gap:.8rem; }
+  .sede-row { background:white; border-radius:13px; padding:1rem 1.2rem; border:1px solid var(--border); display:flex; align-items:flex-start; gap:12px; }
+  .sede-dot { width:10px; height:10px; border-radius:50%; background:var(--red); flex-shrink:0; margin-top:5px; }
+  .sede-row h4 { font-size:14px; font-weight:800; color:var(--navy); margin-bottom:2px; }
+  .sede-row p { font-size:12px; color:var(--gray); }
+
+  /* FOOTER */
+  footer {
+    background:var(--navy); color:rgba(255,255,255,0.5);
+    padding:2.2rem 5vw; display:flex; flex-wrap:wrap;
+    align-items:center; justify-content:space-between; gap:1rem;
+  }
+  .footer-logo { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:rgba(255,255,255,0.85); }
+  footer p { font-size:13px; }
+  footer strong { color:rgba(255,255,255,0.9); }
+
+  /* RESPONSIVE */
+  @media(max-width:820px){
+    .nav-links { display:none; }
+    .hero { grid-template-columns:1fr; padding:90px 5vw 3rem; min-height:auto; }
+    .hero h1 { font-size:2rem; }
+    .hero-visual { order:-1; }
+    .hero-card { max-width:100%; }
+    .about { grid-template-columns:1fr; gap:2rem; }
+    .about-visual { height:220px; }
+    .about-badge { bottom:-14px; right:10px; }
+    .sedes-grid { grid-template-columns:1fr 1fr; }
+    .team-grid { grid-template-columns:1fr 1fr; gap:1rem; }
+    .team-photo-placeholder { font-size:2rem; }
+    .team-name { font-size:.95rem; }
+    .team-sede { font-size:11px; }
+    .team-info { padding:.8rem; }
+    .team-card img { height:170px; }
+    .courses-list { grid-template-columns:1fr 1fr; }
+    .tab-btn { font-size:12px; padding:7px 14px; }
+    .contact { grid-template-columns:1fr; gap:2rem; }
+    .schedule-cards { grid-template-columns:1fr; }
+    section { padding:3.5rem 5vw; }
+    footer { flex-direction:column; text-align:center; }
+  }
+  @media(max-width:480px){
+    .sedes-grid { grid-template-columns:1fr; }
+    .team-grid { grid-template-columns:1fr 1fr; }
+    .courses-list { grid-template-columns:1fr; }
+    .hero-buttons { flex-direction:column; }
+    .btn-primary, .btn-secondary { text-align:center; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span class="nl1">Let It Be</span><span class="nl2">Language School</span></a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#sedes">Sedes</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#horarios">Horarios</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🏴󠁧󠁢󠁥󠁮󠁧󠁿 4 sedes · Santa Fe, Argentina</div>
+    <h1>Aprendé inglés<br>con <em>confianza</em><br>desde el día uno</h1>
+    <p class="hero-sub">Somos una academia de inglés con presencia en Reconquista, Avellaneda y Romang. Clases para todas las edades y preparación para exámenes internacionales.</p>
+    <div class="hero-buttons">
+      <a href="https://wa.me/543482301010" class="btn-primary">📲 Escribinos por WhatsApp</a>
+      <a href="#cursos" class="btn-secondary">Ver cursos →</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="float-tag">Desde 2022 🎉</div>
+      <div class="divider-grad"></div>
+      <div class="stat-grid">
+        <div class="stat-box"><span class="stat-num">4</span><span class="stat-label">Sedes activas</span></div>
+        <div class="stat-box"><span class="stat-num">+3</span><span class="stat-label">Años formando</span></div>
+        <div class="stat-box"><span class="stat-num">All</span><span class="stat-label">Todas las edades</span></div>
+        <div class="stat-box"><span class="stat-num">🏆</span><span class="stat-label">IELTS · TOEFL</span></div>
+      </div>
+      <div class="hero-pill">📍 Reconquista · Avellaneda · Romang</div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="about" id="nosotros">
+  <div style="position:relative;">
+    <div class="about-visual">
+      <img src="images/logo.png" alt="Let It Be Language School" style="width:100%;height:100%;object-fit:cover;border-radius:24px;">
+    </div>
+    <div class="about-badge"><strong>2022</strong><span>Año de fundación</span></div>
+  </div>
+  <div>
+    <p class="section-label">Quiénes somos</p>
+    <h2 class="section-title">Una academia que nació con vocación</h2>
+    <p class="section-sub">Let It Be Language School nació en 2022 con una sola sede en Barrio Chapero, Reconquista. En pocos años creció hasta tener 4 sedes en toda la región, con docentes apasionadas, un enfoque en las neurociencias y una metodología que pone al alumno en el centro.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-icon">🏫</div><div><h4>Arrancamos en Barrio Chapero</h4><p>En 2022 abrimos nuestra primera sede en Reconquista con un puñado de alumnos y mucha pasión.</p></div></div>
+      <div class="tl-item"><div class="tl-icon">📈</div><div><h4>Crecimos a 4 sedes</h4><p>Hoy estamos en Reconquista (2 sedes), Avellaneda y Romang. La comunidad nos eligió.</p></div></div>
+      <div class="tl-item"><div class="tl-icon">🎓</div><div><h4>Docentes certificadas</h4><p>Profesoras con formación universitaria y certificaciones internacionales en cada sede.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEDES -->
+<section class="sedes" id="sedes">
+  <div class="sedes-header">
+    <p class="section-label">Dónde estamos</p>
+    <h2 class="section-title">Nuestras 4 sedes</h2>
+    <p class="section-sub">Presentes en toda la región, cerca tuyo. Consultanos por la sede más conveniente para vos.</p>
+  </div>
+  <div class="sedes-grid">
+    <div class="sede-card"><div class="sede-num">1</div><h3>Sede Dante Alighieri</h3><address>Mitre 862, Reconquista, Santa Fe</address><span class="sede-tag">📍 Reconquista</span></div>
+    <div class="sede-card"><div class="sede-num">2</div><h3>Sede Barrio Chapero</h3><address>9 de Julio 2235, Reconquista, Santa Fe</address><span class="sede-tag">📍 Reconquista · sede original</span></div>
+    <div class="sede-card"><div class="sede-num">3</div><h3>Sede Avellaneda</h3><address>Calle 202 Nº 286, Avellaneda, Santa Fe</address><span class="sede-tag">📍 Avellaneda</span></div>
+    <div class="sede-card"><div class="sede-num">4</div><h3>Sede Romang</h3><address>Romang, Santa Fe</address><span class="sede-tag">📍 Romang</span></div>
+  </div>
+</section>
+
+<!-- ENCARGADAS -->
+<section class="team" id="equipo">
+  <div class="team-header">
+    <p class="section-label">Nuestro equipo</p>
+    <h2 class="section-title">Encargada de cada sede</h2>
+    <p class="section-sub">Detrás de cada sede hay una docente apasionada que lidera el aprendizaje de sus alumnos día a día.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card img-up">
+      <img src="images/dante.jpg" alt="Dante Alighieri">
+      <div class="team-info"><span class="team-role">Encargada</span><p class="team-name">Maria Laura Paniagua</p><p class="team-sede">📍 Dante Alighieri · Reconquista</p></div>
+    </div>
+    <div class="team-card img-up">
+      <img src="images/chapero.jpg" alt="Barrio Chapero">
+      <div class="team-info"><span class="team-role">Encargada</span><p class="team-name">Maria Paula Quintana</p><p class="team-sede">📍 Barrio Chapero · Reconquista</p></div>
+    </div>
+    <div class="team-card img-avellaneda">
+      <img src="images/avellaneda.jpg" alt="Sede Avellaneda">
+      <div class="team-info"><span class="team-role">Encargada</span><p class="team-name">Silvina Massin</p><p class="team-sede">📍 Sede Avellaneda</p></div>
+    </div>
+    <div class="team-card img-romang">
+      <img src="images/romang.jpg" alt="Sede Romang">
+      <div class="team-info"><span class="team-role">Encargada</span><p class="team-name">Vanesa Passarino</p><p class="team-sede">📍 Sede Romang</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CURSOS -->
+<section class="courses" id="cursos">
+  <div class="courses-header">
+    <p class="section-label">Oferta académica</p>
+    <h2 class="section-title">Nuestros cursos</h2>
+    <p class="section-sub">Propuestas para todas las edades y niveles, con metodología comunicativa y acompañamiento personalizado.</p>
+  </div>
+  <div class="courses-list">
+    <div class="course-item"><span class="course-item-icon">🌱</span><h3>Kinder y Kids</h3><p>Inglés desde la infancia temprana a través de juegos, canciones, historias y actividades comunicativas.</p></div>
+    <div class="course-item"><span class="course-item-icon">📘</span><h3>Grades | 1st, 2nd &amp; 3rd Grade</h3><p>De 8 a 11 años. Los niños aprenden inglés de manera dinámica y progresiva, desarrollando vocabulario, fonética, lectura básica, primeras estructuras, comprensión auditiva y expresión oral.</p></div>
+    <div class="course-item"><span class="course-item-icon">🎒</span><h3>Teens</h3><p>Inglés para adolescentes con temáticas actuales, conversación, proyectos y desarrollo de las cuatro macrohabilidades.</p></div>
+    <div class="course-item"><span class="course-item-icon">🎓</span><h3>Oxford and Cambridge exams</h3><p>Programas orientados a la preparación, el acompañamiento académico y la certificación internacional.</p></div>
+    <div class="course-item"><span class="course-item-icon">💼</span><h3>Adults</h3><p>Cursos para adultos en todos los niveles, con un ritmo adaptado a los objetivos y necesidades de cada alumno.</p></div>
+    <div class="course-item"><span class="course-item-icon">✨</span><h3>Personalizados</h3><p>Clases a medida según necesidades, objetivos individuales y tiempos de aprendizaje.</p></div>
+  </div>
+</section>
+
+<!-- HORARIOS -->
+<section class="schedule" id="horarios">
+  <div class="schedule-header">
+    <p class="section-label">Organización</p>
+    <h2 class="section-title">Horarios de clases</h2>
+    <p class="section-sub">Nuestras sedes funcionan de lunes a viernes en dos turnos.</p>
+  </div>
+  <div class="schedule-box">
+    <p class="time-label">Horario de clases</p>
+    <p class="big-time">8:30 – 12:00<br>14:00 – 21:00</p>
+    <p class="time-days">Lunes a Viernes · Todas las sedes</p>
+    <span class="schedule-note-pill">📅 Consultanos por el turno de tu curso</span>
+    <div class="schedule-cards">
+      <div class="sch-mini"><div class="sch-mini-icon">🧒</div><h4>Niños y Kinder</h4><p>Turnos tempranos del horario vespertino</p></div>
+      <div class="sch-mini"><div class="sch-mini-icon">🎒</div><h4>Teens</h4><p>Horarios compatibles con la secundaria</p></div>
+      <div class="sch-mini"><div class="sch-mini-icon">💼</div><h4>Adults</h4><p>Turnos nocturnos disponibles hasta las 21 hs</p></div>
+      <div class="sch-mini"><div class="sch-mini-icon">🏆</div><h4>Exámenes internacionales</h4><p>Consultanos por fechas de inicio</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+  <div>
+    <p class="section-label">Contacto</p>
+    <h2 class="section-title">¿Querés inscribirte o saber más?</h2>
+    <p class="section-sub">Escribinos por WhatsApp o seguinos en Instagram. ¡Te respondemos enseguida!</p>
+    <div class="contact-items">
+      <div class="contact-item"><div class="c-icon">💬</div><div><h4>WhatsApp</h4><a href="https://wa.me/543482301010">+54 3482 301010</a></div></div>
+      <div class="contact-item"><div class="c-icon">📸</div><div><h4>Instagram</h4><a href="https://instagram.com/letitbe.languageschool" target="_blank">@letitbe.languageschool</a></div></div>
+      <div class="contact-item"><div class="c-icon">🕐</div><div><h4>Atención</h4><p>Lunes a Viernes · 8:30 a 12:00 hs y 14:00 a 21:00 hs</p></div></div>
+    </div>
+    <div class="social-row">
+      <a href="https://instagram.com/letitbe.languageschool" target="_blank" class="social-btn social-ig">📸 Instagram</a>
+      <a href="https://wa.me/543482301010" class="social-btn social-wa">💬 WhatsApp</a>
+    </div>
+  </div>
+  <div>
+    <p class="section-label">Nuestras sedes</p>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:1.2rem;">Encontranos aquí</h3>
+    <div class="sedes-list">
+      <div class="sede-row"><div class="sede-dot"></div><div style="flex:1"><h4>Dante Alighieri</h4><p>Mitre 862, Reconquista, Santa Fe</p></div><a href="https://wa.me/543482301010" target="_blank" style="background:#25D366;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;text-decoration:none;">💬</a></div>
+      <div class="sede-row"><div class="sede-dot"></div><div style="flex:1"><h4>Barrio Chapero <span style="font-size:11px;color:var(--red);font-weight:700;">★ sede original</span></h4><p>9 de Julio 2235, Reconquista, Santa Fe</p></div><a href="https://wa.me/543482442535" target="_blank" style="background:#25D366;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;text-decoration:none;">💬</a></div>
+      <div class="sede-row"><div class="sede-dot"></div><div style="flex:1"><h4>Avellaneda</h4><p>Calle 202 Nº 286, Avellaneda, Santa Fe</p></div><a href="https://wa.me/543482415146" target="_blank" style="background:#25D366;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;text-decoration:none;">💬</a></div>
+      <div class="sede-row"><div class="sede-dot"></div><div style="flex:1"><h4>Romang</h4><p>Romang, Santa Fe</p></div><a href="https://wa.me/543482538073" target="_blank" style="background:#25D366;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;text-decoration:none;">💬</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Let It Be Language School</span>
+  <p><strong>4 sedes</strong> en Santa Fe, Argentina</p>
+  <p>© 2025 · Todos los derechos reservados</p>
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
